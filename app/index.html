@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+
+<html ng-app="flickrApp" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="/app/css/styles.css" rel="stylesheet" />
+    <script type="text/javascript" src="/app/bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="/app/js/app.js"></script>
+    <script type="text/javascript" src="/app/js/controllers/indexController.js"></script>
+    <script type="text/javascript" src="/app/js/services/dataFactory.js"></script>
+    <script type="text/javascript" src="/app/js/filters/splitFilter.js"></script>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body ng-controller="IndexController as ic">
+    <style>
+    </style>
+    <div class="error-message" ng-show="ic.hasErrors">
+        Please enter a tag name to search by!
+    </div>
+    <div class="search">
+        <i class="material-icons" title="Search Photos by Tag">search</i> Search Photos by Tag <input class="search-input" type="text" placeholder="Enter tag..." ng-model="ic.searchTerm" />
+        <button type="button" title="Search" ng-click="ic.search()">Search</button>
+    </div>
+
+
+    <div class="photos-container">
+        <div ng-repeat="photo in ic.photos">
+            <div class="photo">
+                <img ng-src="{{photo.media.m}}" title="{{photo.title}}" />
+                <div class="photo-tags">
+                    <span class="photo-tag" ng-repeat="tag in photo.tags | split:' '" ng-bind="tag" ng-click="ic.searchByTag(tag)"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
